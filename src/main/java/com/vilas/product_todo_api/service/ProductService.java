@@ -1,5 +1,6 @@
 package com.vilas.product_todo_api.service;
 
+import com.vilas.product_todo_api.exception.ProductNotFoundException;
 import com.vilas.product_todo_api.model.Product;
 import com.vilas.product_todo_api.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProductService {
     }
 
     public Product updateProduct(Long id, Product productDetails) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         product.setName(productDetails.getName());
         product.setDescription(productDetails.getDescription());
         product.setCompleted(productDetails.isCompleted());
